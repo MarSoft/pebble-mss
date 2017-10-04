@@ -375,7 +375,7 @@ void effect_mask(GContext* ctx, GRect position, void* param) {
 
 void effect_fps(GContext* ctx, GRect position, void* param) {
   static GFont font = NULL;
-  static char buff[16];
+  static char buff[18];
   time_t tt;
   uint16_t ms;
   
