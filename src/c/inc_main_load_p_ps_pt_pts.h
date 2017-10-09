@@ -1,4 +1,5 @@
 #define MOVE_LAYER(layer, x, y, w, h) layer_set_frame(layer, GRect(x, y-obstruction_shift, w, h))
+#define MOVE_TEXT_LAYER(layer, x, y, w, h) MOVE_LAYER(text_layer_get_layer(layer), x, y, w, h)
 
 static void move_layers(void) {
 	MOVE_LAYER(background_paint_layer, 0, 0, 144, 168-obstruction_shift);
@@ -10,26 +11,30 @@ static void move_layers(void) {
 	MOVE_LAYER(s_image_layer_second_1, 113, 137, 10, 15);
 	MOVE_LAYER(s_image_layer_second_2, 126, 137, 10, 15);
 #endif
-	MOVE_LAYER(text_sunrise_layer, 7, 152, 50, 30);
-	MOVE_LAYER(text_sunset_layer, 110, 152, 50, 30);
-	MOVE_LAYER(connection_layer, 47, 152, 50, 34);
-	MOVE_LAYER(battery_runtime_layer, 2, 15+2, 45, 15+20);
+	MOVE_TEXT_LAYER(text_sunrise_layer, 7, 152, 50, 30);
+	MOVE_TEXT_LAYER(text_sunset_layer, 110, 152, 50, 30);
+	MOVE_TEXT_LAYER(connection_layer, 47, 152, 50, 34);
+	MOVE_TEXT_LAYER(battery_runtime_layer, 2, 15+2, 45, 15+20);
 
-	MOVE_LAYER(s_battery_layer_fill, 3, 21, 38, 11);
+#ifdef PBL_PLATFORM_APLITE
+	MOVE_LAYER(inverter_layer_get_layer(s_battery_layer_fill), 3, 21, 38, 11);
+#else
+	MOVE_LAYER(effect_layer_get_layer(s_battery_layer_fill), 3, 21, 38, 11);
+#endif
 
-	MOVE_LAYER(Date_Layer, 5, 63, 134, 30);
-	MOVE_LAYER(cwLayer, 72, 135, 64, 20);
-	MOVE_LAYER(moonLayer_IMG, 51, 18, 33, 33);
+	MOVE_TEXT_LAYER(Date_Layer, 5, 63, 134, 30);
+	MOVE_TEXT_LAYER(cwLayer, 72, 135, 64, 20);
+	MOVE_TEXT_LAYER(moonLayer_IMG, 51, 18, 33, 33);
 
-	MOVE_LAYER(weather_layer_1_temp, 50, 10, 94, 30);
-	MOVE_LAYER(weather_layer_3_location, 0, -1, 110, 17);
-	MOVE_LAYER(weather_layer_4_last_update, 111, -1, 33, 17);
-	MOVE_LAYER(weather_layer_7_string_1, 86, 54-15, 144-86-2, 30);
-	MOVE_LAYER(weather_layer_7_string_2, 0, 50, 84, 17); //TODO
-	MOVE_LAYER(text_TimeZone_layer, 5, 132, 100, 20); //TODO
+	MOVE_TEXT_LAYER(weather_layer_1_temp, 50, 10, 94, 30);
+	MOVE_TEXT_LAYER(weather_layer_3_location, 0, -1, 110, 17);
+	MOVE_TEXT_LAYER(weather_layer_4_last_update, 111, -1, 33, 17);
+	MOVE_TEXT_LAYER(weather_layer_7_string_1, 86, 54-15, 144-86-2, 30);
+	MOVE_TEXT_LAYER(weather_layer_7_string_2, 0, 50, 84, 17); //TODO
+	MOVE_TEXT_LAYER(text_TimeZone_layer, 5, 132, 100, 20); //TODO
 #ifndef PBL_PLATFORM_APLITE
-	MOVE_LAYER(s_health_bmp_layer, 0,137,15,14);
-	MOVE_LAYER(text_layer_health, 14+10, 132, 100, 20); //TODO
+	MOVE_LAYER(bitmap_layer_get_layer(s_health_bmp_layer), 0,137,15,14);
+	MOVE_TEXT_LAYER(text_layer_health, 14+10, 132, 100, 20); //TODO
 	MOVE_LAYER(s_layer_health_up_down, 14, 140, 10, 10);
 #endif
 }
