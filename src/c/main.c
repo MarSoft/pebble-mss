@@ -89,6 +89,10 @@ static char time_ZONE_NAME[10];
 static time_t sun_rise_unix_loc = 0;
 static time_t sun_set_unix_loc  = 0;
 
+// Screen obstruction in pixels,
+// i.e. how much shall we shift all our layers to the top
+static int obstruction_shift = 0;
+
 //Colors:
 GColor textcolor_clock;
 GColor textcolor_seconds;
@@ -2024,6 +2028,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 	DisplayData();
 }
 
+#ifndef PBL_PLATFORM_APLITE
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
 	//APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped!");
 }
@@ -2036,7 +2041,12 @@ static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 	//APP_LOG(APP_LOG_LEVEL_INFO, "Outbox send success!");
 }
 
-#ifndef PBL_PLATFORM_APLITE
+static void unobstructed_area_will_change(GRect final_unobstructed_area, void *context) {
+}
+
+static void unobstructed_area_change(AnimationProgress progress, void *context) {
+}
+
 static void timer_cycle_color_profile_callback(void *data){
 	if (cycle_color_profile){
 
@@ -2140,6 +2150,11 @@ static void main_window_load(Window *window) {
 	app_message_register_inbox_dropped(inbox_dropped_callback);
 	app_message_register_outbox_failed(outbox_failed_callback);
 	app_message_register_outbox_sent(outbox_sent_callback);
+
+	unobstructed_area_service_subscribe((UnobstructedAreaHandlers) {
+		.will_change = unobstructed_area_will_change,
+		.change = unobstructed_area_change,
+	}, NULL);
 #endif
 
 	// Open AppMessage
