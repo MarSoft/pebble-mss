@@ -519,8 +519,14 @@ void DisplayLastUpdated(void) {
 
 static void format_sunrise_sunset(time_t time, char *buffer, int size) {
 	struct tm* ltime = localtime(&time);
-	char *format = clock_is_24h_style() ? "%H:%M" : "%I:%M";
+	bool is_24 = clock_is_24h_style() && 0;
+	char *format = is_24 ? "%k:%M" : "%l:%M%p";
 	strftime(buffer, size, format, ltime);
+	// allow no more than 5 characters:
+	// for 24h it will be enough;
+	// for 12h we will either fully cut off AM/PM (if hours are >9)
+	// or leave only first char
+	if (size >= 6) buffer[6] = 0;
 }
 
 void DisplayData(void) {
