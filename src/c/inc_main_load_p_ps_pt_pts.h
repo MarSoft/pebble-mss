@@ -16,11 +16,14 @@ static void move_layers(void) {
 	MOVE_TEXT_LAYER(connection_layer, 47, 152, 50, 34);
 	MOVE_TEXT_LAYER(battery_runtime_layer, 2, 15+2, 45, 15+20);
 
+	Layer *battery_layer;
 #ifdef PBL_PLATFORM_APLITE
-	MOVE_LAYER(inverter_layer_get_layer(s_battery_layer_fill), 3, 21, 38, 11);
+	battery_layer = inverter_layer_get_layer(s_battery_layer_fill);
 #else
-	MOVE_LAYER(effect_layer_get_layer(s_battery_layer_fill), 3, 21, 38, 11);
+	battery_layer = effect_layer_get_layer(s_battery_layer_fill);
 #endif
+	BatteryChargeState battery = battery_state_service_peek();
+	MOVE_LAYER(battery_layer, 3, 21, (int)38*battery.charge_percent/100, 11);
 
 	MOVE_TEXT_LAYER(Date_Layer, 5, 63, 134, 30);
 	MOVE_TEXT_LAYER(cwLayer, 72, 135, 64, 20);
