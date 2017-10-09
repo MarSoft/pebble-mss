@@ -1824,6 +1824,15 @@ static void tap_handler(AccelAxisType axis, int32_t direction) {
 
 
 
+// include it only after all globals are declared and funcs are declared
+#ifdef PBL_PLATFORM_CHALK
+#include "inc_main_load_ptr.h"
+#else
+#include "inc_main_load_p_ps_pt_pts.h"
+#endif
+
+
+
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
 
 	// Read first item
@@ -2071,15 +2080,6 @@ static void timer_cycle_color_profile_callback(void *data){
 	}
 }
 #endif
-
-
-// include it only after all globals are declared and funcs are declared
-#ifdef PBL_PLATFORM_CHALK
-#include "inc_main_load_ptr.h"
-#else
-#include "inc_main_load_p_ps_pt_pts.h"
-#endif
-
 
 
 static void main_window_load(Window *window) {
