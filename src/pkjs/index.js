@@ -1,3 +1,5 @@
+// Ignore "...is better written in dot notation" warning
+// jshint -W069
 /*
 var options = {
   "invert": invertSelect.selectedIndex,
