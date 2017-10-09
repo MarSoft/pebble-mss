@@ -1,4 +1,4 @@
-#define MOVE_LAYER(layer, x, y, w, h) layer_set_frame(layer, GRect(x, y-obstruction_shift, w, h))
+#define MOVE_LAYER(layer, x, y, w, h) layer_set_frame(layer, GRect(x, (y)-obstruction_shift, w, h))
 #define MOVE_TEXT_LAYER(layer, x, y, w, h) MOVE_LAYER(text_layer_get_layer(layer), x, y, w, h)
 
 static void move_layers(void) {
