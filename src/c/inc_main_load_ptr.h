@@ -1,4 +1,4 @@
-
+static void create_layers(void) {
   background_paint_layer = layer_create(GRect(0, 0, 180, 180));
   layer_set_update_proc(background_paint_layer, layer_update_callback_background);
   layer_add_child(main_window_layer, background_paint_layer);
@@ -176,3 +176,4 @@
   #endif
     
   // --- END ---
+}

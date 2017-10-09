@@ -183,7 +183,6 @@ static int health_higher_lower_than_avg = 0; //0: equal, -1: lower that avg, 1: 
 #endif
 
 
-
 static void set_cwLayer_size(void);
 static void apply_color_profile(void);
 #ifndef PBL_PLATFORM_APLITE
@@ -2074,6 +2073,15 @@ static void timer_cycle_color_profile_callback(void *data){
 #endif
 
 
+// include it only after all globals are declared and funcs are declared
+#ifdef PBL_PLATFORM_CHALK
+#include "inc_main_load_ptr.h"
+#else
+#include "inc_main_load_p_ps_pt_pts.h"
+#endif
+
+
+
 static void main_window_load(Window *window) {
 
 	// Use setlocale() to obtain the system locale for translation
@@ -2103,11 +2111,8 @@ static void main_window_load(Window *window) {
 	if (ColorProfile > 1) ColorProfile = 0;
 #endif
 
-#ifdef PBL_PLATFORM_CHALK
-#include "inc_main_load_ptr.h"
-#else
-#include "inc_main_load_p_ps_pt_pts.h"
-#endif
+	// this comes from platform-dependent include file
+	create_layers();
 
 	apply_color_profile();
 
