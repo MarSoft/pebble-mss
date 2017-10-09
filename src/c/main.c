@@ -2064,6 +2064,10 @@ static void unobstructed_area_change(AnimationProgress progress, void *context) 
 		obstruction_shift = 17 - obstruction_shift;
 	}
 	APP_LOG(APP_LOG_LEVEL_INFO, "Animation progress: %d, shift %d", progress, obstruction_shift);
+#ifdef MOVE_LAYER
+	// update layer positions, but only if we support that for this platform
+	move_layers();
+#endif
 }
 
 static void timer_cycle_color_profile_callback(void *data){
