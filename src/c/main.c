@@ -588,9 +588,9 @@ void DisplayData(void) {
 
 	static char sun_rise_text[10];
 	static char sun_set_text[10];
-	format_sunrise_sunset(sun_rise_unix_loc, sun_rise_text, 10);
+	format_sunrise_sunset(sun_rise_unix_loc, sun_rise_text, sizeof(sun_rise_text));
 	text_layer_set_text(text_sunrise_layer, sun_rise_text);
-	format_sunrise_sunset(sun_set_unix_loc, sun_set_text, 10);
+	format_sunrise_sunset(sun_set_unix_loc, sun_set_text, sizeof(sun_set_text));
 	text_layer_set_text(text_sunset_layer, sun_set_text);
 
 	//reset the localtime internal variables to the current time, so that the tick_handler is getting the right ones.
