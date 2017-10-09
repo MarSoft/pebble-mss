@@ -9,7 +9,7 @@
             "configurable",
             "health"
         ],
-        "displayName": "M7S_wf_15_7",
+        "displayName": "M7S_mod1",
         "enableMultiJS": true,
         "messageKeys": {
             "KEY_BTY_LAST_CHARGED": 13,
@@ -117,7 +117,7 @@
             "chalk",
             "diorite"
         ],
-        "uuid": "03adc57a-569b-4669-9a80-b505eaea314d",
+        "uuid": "03adc57a-569b-4669-9a80-b505eaea314e",
         "watchapp": {
             "watchface": true
         }
