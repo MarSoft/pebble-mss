@@ -2,7 +2,7 @@
 #define MOVE_TEXT_LAYER(layer, x, y, w, h) MOVE_LAYER(text_layer_get_layer(layer), x, y, w, h)
 
 static void move_layers(void) {
-	MOVE_LAYER(background_paint_layer, 0, 0, 144, 168-obstruction_shift);
+	MOVE_LAYER(background_paint_layer, 0, 0, 144, 168);
 	MOVE_LAYER(s_image_layer_hour_1, 4, 94, 26, 41);
 	MOVE_LAYER(s_image_layer_hour_2, 37, 94, 26, 41);
 	MOVE_LAYER(s_image_layer_minute_1, 80, 94, 26, 41);
