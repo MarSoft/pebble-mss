@@ -6,7 +6,7 @@ static void move_layers(void) {
 	MOVE_LAYER(s_image_layer_hour_1, 4, 96, 26, 41);
 	MOVE_LAYER(s_image_layer_hour_2, 37, 94, 26, 41);
 	MOVE_LAYER(s_image_layer_minute_1, 80, 94, 26, 41);
-	MOVE_LAYER(s_image_layer_minute_1, 111, 94, 26, 41);
+	MOVE_LAYER(s_image_layer_minute_2, 111, 94, 26, 41);
 #ifdef COMPILE_WITH_SECONDS
 	MOVE_LAYER(s_image_layer_second_1, 113, 137, 10, 15);
 	MOVE_LAYER(s_image_layer_second_2, 126, 137, 10, 15);
