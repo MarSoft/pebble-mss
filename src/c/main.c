@@ -517,6 +517,12 @@ void DisplayLastUpdated(void) {
 
 
 
+static void format_sunrise_sunset(time_t time, char *buffer, int size) {
+	struct tm* ltime = localtime(&time);
+	char *format = clock_is_24h_style() ? "%H:%M" : "%I:%M";
+	strftime(buffer, size, format, ltime);
+}
+
 void DisplayData(void) {
 	static char buffer_1[12];
 
@@ -580,21 +586,11 @@ void DisplayData(void) {
 	text_layer_set_text(weather_layer_3_location, location_name);
 
 
-	struct tm* sun_time = localtime(&sun_rise_unix_loc);
 	static char sun_rise_text[10];
 	static char sun_set_text[10];
-	if(clock_is_24h_style()) {
-		strftime(sun_rise_text, sizeof(sun_rise_text), "%H:%M", sun_time);
-	} else {
-		strftime(sun_rise_text, sizeof(sun_rise_text), "%I:%M", sun_time);
-	}
+	format_sunrise_sunset(sun_rise_unix_loc, sun_rise_text, 10);
 	text_layer_set_text(text_sunrise_layer, sun_rise_text);
-	sun_time = localtime(&sun_set_unix_loc);
-	if(clock_is_24h_style()) {
-		strftime(sun_set_text, sizeof(sun_set_text), "%H:%M", sun_time);
-	} else {
-		strftime(sun_set_text, sizeof(sun_set_text), "%I:%M", sun_time);
-	}
+	format_sunrise_sunset(sun_set_unix_loc, sun_set_text, 10);
 	text_layer_set_text(text_sunset_layer, sun_set_text);
 
 	//reset the localtime internal variables to the current time, so that the tick_handler is getting the right ones.
