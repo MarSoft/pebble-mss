@@ -1000,15 +1000,17 @@ static void handle_second_tick(struct tm* current_time, TimeUnits units_changed)
 	apply_color_profile();
 #endif
 
-	if (NightMode) if ((units_changed & HOUR_UNIT) || (NightMode != NightModeOld)) {
-		int moonphase_number = 0;
-		moonphase_number = calc_moonphase_number(location_latitude);
-		moon[0] = (unsigned char)(moonphase_char_number(moonphase_number));
+	if (NightMode) {
+		if ((units_changed & HOUR_UNIT) || (NightMode != NightModeOld)) {
+			int moonphase_number = 0;
+			moonphase_number = calc_moonphase_number(location_latitude);
+			moon[0] = (unsigned char)(moonphase_char_number(moonphase_number));
 
-		text_layer_set_font(moonLayer_IMG, pFontMoon);
-		layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 21+Y_OFFSET-obstruction_shift, 33, 33));
-		text_layer_set_text(moonLayer_IMG, moon);
-		apply_color_profile();
+			text_layer_set_font(moonLayer_IMG, pFontMoon);
+			layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 21+Y_OFFSET-obstruction_shift, 33, 33));
+			text_layer_set_text(moonLayer_IMG, moon);
+			apply_color_profile();
+		}
 	}
 	NightModeOld = NightMode;
 
