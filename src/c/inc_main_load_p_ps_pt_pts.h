@@ -1,3 +1,39 @@
+#define MOVE_LAYER(layer, x, y, w, h) layer_set_frame(layer, GRect(x, y-obstruction_shift, w, h))
+
+static void move_layers(void) {
+	MOVE_LAYER(background_paint_layer, 0, 0, 144, 168-obstruction_shift);
+	MOVE_LAYER(s_image_layer_hour_1, 4, 96, 26, 41);
+	MOVE_LAYER(s_image_layer_hour_2, 37, 94, 26, 41);
+	MOVE_LAYER(s_image_layer_minute_1, 80, 94, 26, 41);
+	MOVE_LAYER(s_image_layer_minute_1, 111, 94, 26, 41);
+#ifdef COMPILE_WITH_SECONDS
+	MOVE_LAYER(s_image_layer_second_1, 113, 137, 10, 15);
+	MOVE_LAYER(s_image_layer_second_2, 126, 137, 10, 15);
+#endif
+	MOVE_LAYER(text_sunrise_layer, 7, 152, 50, 30);
+	MOVE_LAYER(text_sunset_layer, 110, 152, 50, 30);
+	MOVE_LAYER(connection_layer, 47, 152, 50, 34);
+	MOVE_LAYER(battery_runtime_layer, 2, 15+2, 45, 15+20);
+
+	MOVE_LAYER(s_battery_layer_fill, 3, 21, 38, 11);
+
+	MOVE_LAYER(Date_Layer, 5, 63, 134, 30);
+	MOVE_LAYER(cwLayer, 72, 135, 64, 20);
+	MOVE_LAYER(moonLayer_IMG, 51, 18, 33, 33);
+
+	MOVE_LAYER(weather_layer_1_temp, 50, 10, 94, 30);
+	MOVE_LAYER(weather_layer_3_location, 0, -1, 110, 17);
+	MOVE_LAYER(weather_layer_4_last_update, 111, -1, 33, 17);
+	MOVE_LAYER(weather_layer_7_string_1, 86, 54-15, 144-86-2, 30);
+	MOVE_LAYER(weather_layer_7_string_2, 0, 50, 84, 17); //TODO
+	MOVE_LAYER(text_TimeZone_layer, 5, 132, 100, 20); //TODO
+#ifndef PBL_PLATFORM_APLITE
+	MOVE_LAYER(s_health_bmp_layer, 0,137,15,14);
+	MOVE_LAYER(text_layer_health, 14+10, 132, 100, 20); //TODO
+	MOVE_LAYER(s_layer_health_up_down, 14, 140, 10, 10);
+#endif
+}
+
 static void create_layers(void) {
   background_paint_layer = layer_create(GRect(0, 0, 144, 168));
   layer_set_update_proc(background_paint_layer, layer_update_callback_background);
@@ -174,6 +210,8 @@ static void create_layers(void) {
     layer_set_update_proc(s_layer_health_up_down, layer_update_callback_health_up_down);
     layer_add_child(main_window_layer, s_layer_health_up_down);
   #endif
+
+	move_layers();
     
   // --- END ---
 }
