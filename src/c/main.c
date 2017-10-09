@@ -2051,6 +2051,9 @@ static void unobstructed_area_will_change(GRect final_unobstructed_area, void *c
 
 static void unobstructed_area_change(AnimationProgress progress, void *context) {
 	obstruction_shift = 17 * progress / (ANIMATION_NORMALIZED_MAX - ANIMATION_NORMALIZED_MIN);
+	if (will_be_obstructed) {
+		// revert it
+		obstruction_shift = 17 - obstruction_shift;
 	}
 	APP_LOG(APP_LOG_LEVEL_INFO, "Animation progress: %d, shift %d", progress, obstruction_shift);
 }
