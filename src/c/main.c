@@ -982,7 +982,7 @@ static void handle_second_tick(struct tm* current_time, TimeUnits units_changed)
 
 		if (!NightMode){
 			text_layer_set_font(moonLayer_IMG, pFontClimacons);
-			layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 15+Y_OFFSET, 33, 33));
+			layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 15+Y_OFFSET-obstruction_shift, 33, 33));
 
 			weather_icon[0] = (unsigned char)wi_day_and_night;
 			text_layer_set_text(moonLayer_IMG, weather_icon);
@@ -991,7 +991,7 @@ static void handle_second_tick(struct tm* current_time, TimeUnits units_changed)
 	}
 #else
 	text_layer_set_font(moonLayer_IMG, pFontClimacons);
-	layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 15+Y_OFFSET, 33, 33));
+	layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 15+Y_OFFSET-obstruction_shift, 33, 33));
 
 	static int wi_counter = 33;
 	wi_counter++; if (wi_counter>106) wi_counter = 33;
@@ -1006,7 +1006,7 @@ static void handle_second_tick(struct tm* current_time, TimeUnits units_changed)
 		moon[0] = (unsigned char)(moonphase_char_number(moonphase_number));
 
 		text_layer_set_font(moonLayer_IMG, pFontMoon);
-		layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 21+Y_OFFSET, 33, 33));
+		layer_set_frame(text_layer_get_layer(moonLayer_IMG), GRect(51+X_OFFSET, 21+Y_OFFSET-obstruction_shift, 33, 33));
 		text_layer_set_text(moonLayer_IMG, moon);
 		apply_color_profile();
 	}
@@ -1189,7 +1189,7 @@ static void handle_battery(BatteryChargeState charge_state) {
 
 #ifdef PBL_PLATFORM_APLITE //only on SDK 2.x
 	//GRect(41, 21, 38, 11): size of InverterLayer
-	layer_set_frame(inverter_layer_get_layer(s_battery_layer_fill), GRect(3, 21, (int)38*actual_battery_percent/100, 11));
+	layer_set_frame(inverter_layer_get_layer(s_battery_layer_fill), GRect(3, 21-obstruction_shift, (int)38*actual_battery_percent/100, 11));
 	layer_set_hidden(inverter_layer_get_layer(s_battery_layer_fill), false);
 	if (actual_battery_percent <= 20){
 		if (!ColorProfile){
@@ -1209,8 +1209,8 @@ static void handle_battery(BatteryChargeState charge_state) {
 		}
 	}
 #else
-	layer_set_frame(effect_layer_get_layer(s_battery_layer_fill), GRect(3+X_OFFSET, 21+Y_OFFSET, (int)38*actual_battery_percent/100, 11));
-	//layer_set_frame(effect_layer_get_layer(s_battery_layer_fill), GRect(0, 0, 180, 180));
+	layer_set_frame(effect_layer_get_layer(s_battery_layer_fill), GRect(3+X_OFFSET, 21+Y_OFFSET-obstruction_shift, (int)38*actual_battery_percent/100, 11));
+	//layer_set_frame(effect_layer_get_layer(s_battery_layer_fill), GRect(0, 0-obstruction_shift, 180, 180));
 	layer_set_hidden(effect_layer_get_layer(s_battery_layer_fill), false);
 
 	uint8_t variable_color = 0;
@@ -1637,19 +1637,19 @@ static void set_cwLayer_size(void){
 	if (DisplaySeconds){
 		if ((TimeZoneFormat == 1) && (HealthInfo == 0)){
 			text_layer_set_text_alignment(cwLayer, GTextAlignmentCenter);
-			layer_set_frame(text_layer_get_layer(cwLayer), GRect(0+X_OFFSET, 135+Y_OFFSET, 144, 20));
+			layer_set_frame(text_layer_get_layer(cwLayer), GRect(0+X_OFFSET, 135+Y_OFFSET-obstruction_shift, 144, 20));
 		} else {
 			text_layer_set_text_alignment(cwLayer, GTextAlignmentLeft);
-			layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET, 64, 20));
+			layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET-obstruction_shift, 64, 20));
 		}
 	} else {
 		text_layer_set_text_alignment(cwLayer, GTextAlignmentRight); // this must be done before layer_set_frame for alignment on Aplite.
-		layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET, 64, 20));
+		layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET-obstruction_shift, 64, 20));
 	}
 #endif
 #ifndef COMPILE_WITH_SECONDS
 	text_layer_set_text_alignment(cwLayer, GTextAlignmentRight); // this must be done before layer_set_frame for alignment on Aplite.
-	layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET, 64, 20));
+	layer_set_frame(text_layer_get_layer(cwLayer), GRect(72+X_OFFSET, 135+Y_OFFSET-obstruction_shift, 64, 20));
 #endif
 #endif
 }
