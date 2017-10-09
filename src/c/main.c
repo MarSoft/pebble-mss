@@ -2092,6 +2092,7 @@ static void main_window_load(Window *window) {
 
 
 	main_window_layer = window_get_root_layer(s_main_window);
+	obstruction_shift = layer_get_bounds(main_window_layer).size.h == 168 ? 0 : 18;
 
 	initDone = false;
 
