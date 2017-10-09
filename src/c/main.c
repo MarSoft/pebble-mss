@@ -8,6 +8,7 @@
 #include "effect_layer.h"
 
 static Window *s_main_window;
+static Layer *main_window_layer;
 
 
 static Layer *s_image_layer_hour_1;
@@ -91,6 +92,7 @@ static time_t sun_set_unix_loc  = 0;
 
 // Screen obstruction in pixels,
 // i.e. how much shall we shift all our layers to the top
+static bool will_be_obstructed = false;
 static int obstruction_shift = 0;
 
 //Colors:
@@ -2042,9 +2044,15 @@ static void outbox_sent_callback(DictionaryIterator *iterator, void *context) {
 }
 
 static void unobstructed_area_will_change(GRect final_unobstructed_area, void *context) {
+	// determine direction
+	GRect full_bounds = layer_get_bounds(main_window_layer);
+	will_be_obstructed = grect_equal(&full_bounds, &final_unobstructed_area);
 }
 
 static void unobstructed_area_change(AnimationProgress progress, void *context) {
+	obstruction_shift = 17 * progress / (ANIMATION_NORMALIZED_MAX - ANIMATION_NORMALIZED_MIN);
+	}
+	APP_LOG(APP_LOG_LEVEL_INFO, "Animation progress: %d, shift %d", progress, obstruction_shift);
 }
 
 static void timer_cycle_color_profile_callback(void *data){
@@ -2070,7 +2078,7 @@ static void main_window_load(Window *window) {
 	LightIsOn = 0;
 
 
-	Layer *main_window_layer = window_get_root_layer(s_main_window);
+	main_window_layer = window_get_root_layer(s_main_window);
 
 	initDone = false;
 
