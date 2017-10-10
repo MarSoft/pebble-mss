@@ -519,7 +519,7 @@ void DisplayLastUpdated(void) {
 
 static void format_sunrise_sunset(time_t time, char *buffer, int size) {
 	struct tm* ltime = localtime(&time);
-	bool is_24 = clock_is_24h_style() && 0;
+	bool is_24 = clock_is_24h_style();
 	char *format = is_24 ? "%k:%M" : "%l:%M%p";
 	strftime(buffer, size, format, ltime);
 	// allow no more than 5 characters:
