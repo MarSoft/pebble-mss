@@ -2098,7 +2098,9 @@ static void main_window_load(Window *window) {
 
 
 	main_window_layer = window_get_root_layer(s_main_window);
-	obstruction_shift = layer_get_bounds(main_window_layer).size.h == 168 ? 0 : 18;
+	GRect real_bounds = layer_get_unobstructed_bounds(main_window_layer);
+	GRect current_bounds = layer_get_bounds(main_window_layer);
+	obstruction_shift = current_bounds.size.h == real_bounds.size.h ? 0 : 18;
 
 	initDone = false;
 
